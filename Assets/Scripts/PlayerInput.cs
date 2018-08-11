@@ -5,25 +5,41 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour {
 
     public GameObject[] passengers;
-    public float maximumForce = 10;
-    public float minimumForce = 1;
+    public GameObject trajectoryDot;
+    public float speed = 10;
+    public int numDots = 10;
+    public float timeStep = 0.05f;
 
+    List<GameObject> dotTrail;
     GameObject currentPassenger;
     bool aiming;
-    Vector2 aimVector;
+    Vector3 aimVector;
     Vector3 startPoint;
 
 	void Update () {
+        if (dotTrail != null)
+        {
+            foreach (GameObject go in dotTrail)
+                Destroy(go);
+        }
         if (aiming)
         {
             Vector2 heading = Camera.main.ScreenToWorldPoint(Input.mousePosition) - startPoint;
             float distance = heading.magnitude;
-            aimVector = (heading / distance) * -1;
+            aimVector = (heading / distance) * -1 * speed;
+
+            dotTrail = new List<GameObject>();
+            for (int i = 0; i < numDots; i++)
+            {
+                GameObject tempTrajectoryDot = Instantiate(trajectoryDot);
+                tempTrajectoryDot.transform.position = PredictPosition(timeStep * i);
+                dotTrail.Add(tempTrajectoryDot);
+            }
         }
 
         if(Input.GetMouseButtonUp(0)){
             currentPassenger.GetComponent<Rigidbody2D>().gravityScale = 1;
-            currentPassenger.GetComponent<Rigidbody2D>().AddForce(aimVector* 10,ForceMode2D.Impulse);
+            currentPassenger.GetComponent<Rigidbody2D>().velocity = aimVector;
             aiming = false;
         }
         if(Input.GetMouseButtonDown(0)){
@@ -33,4 +49,9 @@ public class PlayerInput : MonoBehaviour {
             aiming = true;
         }
 	}
+
+    Vector2 PredictPosition(float elapsedTime){
+        return Physics.gravity * elapsedTime * elapsedTime * 0.5f +
+                      aimVector * elapsedTime + transform.position;
+    }
 }
