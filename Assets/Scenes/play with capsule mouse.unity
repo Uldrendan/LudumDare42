@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 518602444}
   - component: {fileID: 518602443}
-  - component: {fileID: 518602442}
   m_Layer: 0
   m_Name: Conductor
   m_TagString: Untagged
@@ -130,19 +129,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &518602442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 518602441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6d835027f94448efbe115006ea5e2c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  passengers:
-  - {fileID: 1698555903025260, guid: cbb856d14c1c1435a9383f6e6ca90c6c, type: 2}
 --- !u!212 &518602443
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -196,8 +182,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 518602441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -5, y: -2.5, z: 0}
+  m_LocalScale: {x: 1, y: 4, z: 1}
   m_Children:
   - {fileID: 1051135708}
   m_Father: {fileID: 0}
@@ -213,7 +199,6 @@ GameObject:
   - component: {fileID: 894162504}
   - component: {fileID: 894162503}
   - component: {fileID: 894162502}
-  - component: {fileID: 894162505}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -281,19 +266,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &894162505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 894162501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6d835027f94448efbe115006ea5e2c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  passengers:
-  - {fileID: 1698555903025260, guid: cbb856d14c1c1435a9383f6e6ca90c6c, type: 2}
 --- !u!1 &1051135707
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1051135708}
   - component: {fileID: 1051135709}
+  - component: {fileID: 1051135710}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -317,8 +290,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1051135707}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalScale: {x: 1, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 518602444}
   m_RootOrder: 0
@@ -369,6 +342,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1051135710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1051135707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6d835027f94448efbe115006ea5e2c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passengers:
+  - {fileID: 1698555903025260, guid: cbb856d14c1c1435a9383f6e6ca90c6c, type: 2}
 --- !u!1 &1799036291
 GameObject:
   m_ObjectHideFlags: 0
