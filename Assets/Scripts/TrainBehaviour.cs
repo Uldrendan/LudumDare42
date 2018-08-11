@@ -59,6 +59,7 @@ public class TrainBehaviour : MonoBehaviour {
             }
             t = 0;
             doorState = DoorState.closed;
+            TrainDoor.GetComponent<ScoreKeeper>().ShowScore();
             while (transform.position != target)
             {
                 t += Time.deltaTime / timeToReachTarget;
