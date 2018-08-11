@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50270125966873682}
   - component: {fileID: 60962352157396694}
   m_Layer: 0
-  m_Name: capsule_gray_s1
+  m_Name: Grey Passenger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
