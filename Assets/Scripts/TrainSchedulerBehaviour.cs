@@ -46,6 +46,7 @@ public class TrainSchedulerBehaviour : MonoBehaviour {
             {
                 if (trainMoveState == TrainMoveState.Waiting)
                 {
+                    ArrivalLight.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
                     Debug.Log("Arriving");
                     trainMoveState = TrainMoveState.Arriving;
                     Train.GetComponent<TrainBehaviour>().SetDestination(BoardingPlatform, TrainTravelingTime, DoorOpenTime);
@@ -53,12 +54,14 @@ public class TrainSchedulerBehaviour : MonoBehaviour {
                 }
                 else if (trainMoveState == TrainMoveState.Arriving)
                 {
+                    ArrivalLight.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
                     Debug.Log("Loading");
                     trainMoveState = TrainMoveState.Loading;
                     advancementTimer = TrainLoadingTime;
                 }
                 else if (trainMoveState == TrainMoveState.Loading)
                 {
+                    DepartureLight.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
                     Debug.Log("Departing");
                     trainMoveState = TrainMoveState.Departing;
                     Train.GetComponent<TrainBehaviour>().SetDestination(FinalStop, TrainTravelingTime, DoorOpenTime);
@@ -66,6 +69,7 @@ public class TrainSchedulerBehaviour : MonoBehaviour {
                 }
                 else if (trainMoveState == TrainMoveState.Departing)
                 {
+                    DepartureLight.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
                     Debug.Log("Waiting");
                     trainMoveState = TrainMoveState.Waiting;
                     Train.transform.position = StartLocation;
