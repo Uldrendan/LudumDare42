@@ -31,8 +31,10 @@ public class PlayerInput : MonoBehaviour {
             dotTrail = new List<GameObject>();
             for (int i = 0; i < numDots; i++)
             {
-                GameObject tempTrajectoryDot = Instantiate(trajectoryDot);
-                tempTrajectoryDot.transform.position = PredictPosition(timeStep * i);
+                Vector2 newPosition = PredictPosition(timeStep * i);
+                if (float.IsNaN(newPosition.x) || float.IsNaN(newPosition.y))
+                    continue;
+                GameObject tempTrajectoryDot = Instantiate(trajectoryDot, newPosition,Quaternion.identity);
                 dotTrail.Add(tempTrajectoryDot);
             }
         }
