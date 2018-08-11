@@ -5,74 +5,82 @@ using UnityEngine;
 public class TrainBehaviour : MonoBehaviour {
 
     public GameObject TrainDoor;
-    public float AdvancementSpeed = 1f;
+    Vector3 _currentDestination;
 
-    Vector3 _startLocation;
-    public Vector3 BoardingPlatform = new Vector3(0, 0, 0);
-    public Vector3 FinalStop = new Vector3(-25, 0, 0);
+    float t;
+    Vector3 startPosition;
+    Vector3 target;
+    float timeToReachTarget;
+    float doorTimer;
 
-    public enum moveState
+    enum DoorState
     {
-        Arriving,
-        Advancing,
-        Loading,
-        Departing,
-        Departed
+        open,
+        closed
     }
-    public moveState TrainMoveState = moveState.Arriving;
+    DoorState doorState = DoorState.closed;
 
-    // Use this for initialization
-    void Start () {
-        _startLocation = transform.position;
-
-        TrainMoveState = moveState.Arriving;
+    void Start()
+    {
+        startPosition = transform.position;
+        target = transform.position;
     }
 
-    void AdvanceToDestination(Vector3 Destination)
+    IEnumerator AdvanceTrain()
     {
-        // The step size is equal to speed times frame time.
-        float step = AdvancementSpeed * Time.deltaTime;
-
-        transform.position = Vector3.MoveTowards(transform.position, Destination, step);
-        if (transform.position == BoardingPlatform)
+        if (doorState == DoorState.closed)
         {
-            TrainMoveState = moveState.Loading;
-        }
-        else if (transform.position == FinalStop)
-        {
-            TrainMoveState = moveState.Departed;
-        }
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        if (TrainMoveState == moveState.Arriving)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-                TrainMoveState = moveState.Advancing;
-        }
-        else if (TrainMoveState == moveState.Advancing)
-        {
-            AdvanceToDestination(BoardingPlatform);
-        }
-        else if (TrainMoveState == moveState.Loading)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-                TrainMoveState = moveState.Departing;
-        }
-        else if (TrainMoveState == moveState.Departing)
-        {
-            AdvanceToDestination(FinalStop);
-        }
-        else if (TrainMoveState == moveState.Departed)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
+            t = 0;
+            while (transform.position != target)
             {
-                transform.position = _startLocation;
-                TrainMoveState = moveState.Arriving;
+                t += Time.deltaTime / timeToReachTarget;
+                transform.position = Vector3.Lerp(startPosition, target, t);
+                yield return new WaitForEndOfFrame();
+            }
+            t = 0;
+            //open door animation trigger
+            TrainDoor.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            while (t < doorTimer)
+            {
+                t += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            doorState = DoorState.open;
+        }
+        else
+        {
+            t = 0;
+            //close door animation trigger
+            TrainDoor.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            while (t < doorTimer)
+            {
+                t += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            t = 0;
+            doorState = DoorState.closed;
+            while (transform.position != target)
+            {
+                t += Time.deltaTime / timeToReachTarget;
+                transform.position = Vector3.Lerp(startPosition, target, t);
+                yield return new WaitForEndOfFrame();
             }
         }
+    }
 
+    public void SetDestination(Vector3 destination, float travelTime, float doorOpenTime)
+    {
+        t = 0;
+        startPosition = transform.position;
+        timeToReachTarget = travelTime;
+        doorTimer = doorOpenTime;
+        target = destination;
+        StartCoroutine(AdvanceTrain());
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        t = 0;
+        target = destination;
     }
 }
