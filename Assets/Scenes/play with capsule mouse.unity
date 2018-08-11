@@ -355,6 +355,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passengers:
   - {fileID: 1698555903025260, guid: cbb856d14c1c1435a9383f6e6ca90c6c, type: 2}
+  trajectoryDot: {fileID: 1057687792108386, guid: 486ac08e1415c4a6fa1a95a953eb0fdc,
+    type: 2}
+  speed: 10
+  numDots: 50
+  timeStep: 0.05
 --- !u!1 &1799036291
 GameObject:
   m_ObjectHideFlags: 0
