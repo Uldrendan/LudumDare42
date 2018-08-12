@@ -42,6 +42,7 @@ public class PlayerInput : MonoBehaviour {
         if(Input.GetMouseButtonUp(0)){
             currentPassenger.GetComponent<Rigidbody2D>().gravityScale = 1;
             currentPassenger.GetComponent<Rigidbody2D>().velocity = aimVector;
+            currentPassenger.GetComponent<PolygonCollider2D>().enabled = true;
             aiming = false;
         }
         if(Input.GetMouseButtonDown(0)){
