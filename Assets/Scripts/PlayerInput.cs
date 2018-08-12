@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour {
         if (aiming)
         {
             Vector2 heading = Camera.main.ScreenToWorldPoint(Input.mousePosition) - startPoint;
-            float distance = heading.magnitude;
+            float distance = Mathf.Max(heading.magnitude,0.000001f);
             aimVector = (heading / distance) * -1 * speed;
 
             dotTrail = new List<GameObject>();

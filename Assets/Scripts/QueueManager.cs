@@ -10,7 +10,9 @@ public class QueueManager : MonoBehaviour {
 
     public Queue<GameObject> passengerQueue;
 
-    public Transform[] queuePositions;
+    public int queSize;
+    Transform[] queuePositions;
+
 
     void Awake()
 	{
@@ -23,8 +25,9 @@ public class QueueManager : MonoBehaviour {
 	void Start()
 	{
         passengerQueue = new Queue<GameObject>();
-        foreach(Transform pos in queuePositions){
-            GameObject newPassenger = Instantiate(passengers[Random.Range(0, passengers.Length)], pos.position, Quaternion.identity);
+        for (int i = 0; i < queSize; i++)
+        {
+            GameObject newPassenger = Instantiate(passengers[Random.Range(0, passengers.Length)], new Vector2(transform.position.x+i,transform.position.y), Quaternion.identity);
             newPassenger.transform.parent = transform;
             passengerQueue.Enqueue(newPassenger);
         }
@@ -34,10 +37,10 @@ public class QueueManager : MonoBehaviour {
         GameObject nextPassenger = passengerQueue.Dequeue();
         int counter = 0;
         foreach(GameObject go in passengerQueue){
-            go.transform.position = queuePositions[counter].position;
+            go.transform.position = new Vector2(go.transform.position.x - 1, go.transform.position.y);
             counter += 1;
         }
-        GameObject newPassenger = Instantiate(passengers[Random.Range(0, passengers.Length)],queuePositions[queuePositions.Length-1].position,Quaternion.identity);
+        GameObject newPassenger = Instantiate(passengers[Random.Range(0, passengers.Length)],new Vector2(transform.position.x+queSize-1,transform.position.y),Quaternion.identity);
         newPassenger.transform.parent = transform;
         passengerQueue.Enqueue(newPassenger);
         return nextPassenger;
