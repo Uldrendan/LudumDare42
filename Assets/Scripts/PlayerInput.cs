@@ -46,8 +46,8 @@ public class PlayerInput : MonoBehaviour {
             aiming = false;
         }
         if(Input.GetMouseButtonDown(0)){
-            currentPassenger = Instantiate(passengers[Random.Range(0, passengers.Length)], transform.position, Quaternion.identity);
-            currentPassenger.GetComponent<Rigidbody2D>().gravityScale = 0;
+            currentPassenger = QueueManager.Instance.NextInQueue();
+            currentPassenger.transform.position = transform.position;
             startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             aiming = true;
         }
